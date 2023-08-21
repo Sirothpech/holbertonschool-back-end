@@ -44,7 +44,15 @@ is done with tasks({TOTAL_NUMBER_OF_TASKS}/{NUMBER_OF_DONE_TASKS}):")
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Usage: python3 gather_data_from_an_API.py <employee_id>")
-        sys.exit(1)
+        # Demandez à l'utilisateur de fournir un ID d'employé s'il n'est pas fourni
+        employee_id = input("Veuillez entrer l'ID de l'employé : ")
+        try:
+            employee_id = int(employee_id)
+        except ValueError:
+            print("L'ID de l'employé doit être un nombre entier.")
+            sys.exit(1)
 
-    employee_id = int(sys.argv[1])
+    else:
+        employee_id = int(sys.argv[1])
+
     get_employee_todo_list(employee_id)
