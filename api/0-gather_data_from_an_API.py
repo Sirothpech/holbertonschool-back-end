@@ -14,8 +14,13 @@ def get_employee_todo_list(employee_id):
     user_url = f'{base_url}/users/{employee_id}'
 
     # Send requests to the API
-    todos_response = requests.get(todos_url)
-    user_response = requests.get(user_url)
+    try:
+        todos_response = requests.get(todos_url)
+        user_response = requests.get(user_url)
+        user_response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
     # Check if the employee exists
     if user_response.status_code != 200:
@@ -28,15 +33,12 @@ def get_employee_todo_list(employee_id):
 
     # Calculate the number of completed tasks
     completed_tasks = [todo for todo in todos if todo['completed']]
+    num_completed_tasks = len(completed_tasks)
+    total_tasks = len(todos)
 
-    EMPLOYEE_NAME = user['name']
-    TOTAL_NUMBER_OF_TASKS = len(completed_tasks)
-    NUMBER_OF_DONE_TASKS = len(todos)
     # Display the employee TODO list progress
-
-    print(f"Employee {EMPLOYEE_NAME} \
-is done with tasks({TOTAL_NUMBER_OF_TASKS}/{NUMBER_OF_DONE_TASKS}):")
-
+    print(f"Employee {user['name']} is done with tasks\
+({num_completed_tasks}/{total_tasks}):")
     for task in completed_tasks:
         print(f"\t {task['title']}")
 
@@ -44,15 +46,7 @@ is done with tasks({TOTAL_NUMBER_OF_TASKS}/{NUMBER_OF_DONE_TASKS}):")
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Usage: python3 gather_data_from_an_API.py <employee_id>")
-        # Demandez à l'utilisateur de fournir un ID d'employé s'il n'est pas fourni
-        employee_id = input("Veuillez entrer l'ID de l'employé : ")
-        try:
-            employee_id = int(employee_id)
-        except ValueError:
-            print("L'ID de l'employé doit être un nombre entier.")
-            sys.exit(1)
+        sys.exit(1)
 
-    else:
-        employee_id = int(sys.argv[1])
-
+    employee_id = int(sys.argv[1])
     get_employee_todo_list(employee_id)
