@@ -7,6 +7,7 @@ import json
 import requests
 import sys
 
+
 def get_employee_todo_list(employee_id):
     base_url = 'https://jsonplaceholder.typicode.com'
     todos_url = f'{base_url}/todos?userId={employee_id}'
@@ -25,9 +26,10 @@ def get_employee_todo_list(employee_id):
     json_filename = f'{employee_id}.json'
 
     # Create a data structure in JSON format
-    data = {str(user['id']): [{"task": task['title'],
-                            "completed": task['completed'],
-                        "username": user['username']} for task in todos]}
+    data = {str(user['id']): [{
+        "task": task['title'],
+        "completed": task['completed'],
+        "username": user['username']} for task in todos]}
 
     # Write this JSON data structure to a file
     with open(json_filename, 'w') as jsonfile:
@@ -43,4 +45,3 @@ if __name__ == '__main__':
 
     employee_id = int(sys.argv[1])
     get_employee_todo_list(employee_id)
-
