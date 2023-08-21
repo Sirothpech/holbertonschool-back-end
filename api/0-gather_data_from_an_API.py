@@ -14,13 +14,8 @@ def get_employee_todo_list(employee_id):
     user_url = f'{base_url}/users/{employee_id}'
 
     # Send requests to the API
-    try:
-        todos_response = requests.get(todos_url)
-        user_response = requests.get(user_url)
-        user_response.raise_for_status()
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+    todos_response = requests.get(todos_url)
+    user_response = requests.get(user_url)
 
     # Check if the employee exists
     if user_response.status_code != 200:
@@ -38,7 +33,7 @@ def get_employee_todo_list(employee_id):
 
     # Display the employee TODO list progress
     print(f"Employee {user['name']} is done with tasks\
-({num_completed_tasks}/{total_tasks}):")
+        ({num_completed_tasks}/{total_tasks}):")
     for task in completed_tasks:
         print(f"\t {task['title']}")
 
