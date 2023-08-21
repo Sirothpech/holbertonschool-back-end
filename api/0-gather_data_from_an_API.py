@@ -28,12 +28,18 @@ def get_employee_todo_list(employee_id):
 
     # Calculate the number of completed tasks
     completed_tasks = [todo for todo in todos if todo['completed']]
-    num_completed_tasks = len(completed_tasks)
-    total_tasks = len(todos)
 
+    EMPLOYEE_NAME = user['name']
+    TOTAL_NUMBER_OF_TASKS = len(completed_tasks)
+    NUMBER_OF_DONE_TASKS = len(todos)
     # Display the employee TODO list progress
+<<<<<<< HEAD
     print(f"Employee {user['name']}\
 is done with tasks({num_completed_tasks}/{total_tasks}):")
+=======
+    print(f"Employee {EMPLOYEE_NAME} \
+is done with tasks({TOTAL_NUMBER_OF_TASKS}/{NUMBER_OF_DONE_TASKS}):")
+>>>>>>> 502df1e (Update the file 0, change the name of variables)
     for task in completed_tasks:
         print(f"\t {task['title']}")
 
