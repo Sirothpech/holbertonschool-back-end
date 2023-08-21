@@ -33,7 +33,7 @@ def get_employee_todo_list(employee_id):
 
     # Display the employee TODO list progress
     print(f"Employee {user['name']} is done with tasks\
-        ({num_completed_tasks}/{total_tasks}):")
+({num_completed_tasks}/{total_tasks}):")
     for task in completed_tasks:
         print(f"\t {task['title']}")
 
