@@ -8,6 +8,7 @@ import json
 import requests
 import sys
 
+
 def export_to_json():
     base_url = 'https://jsonplaceholder.typicode.com'
     users_url = f'{base_url}/users'
@@ -51,6 +52,7 @@ def export_to_json():
 
     with open(filename, 'w') as json_file:
         json.dump(data, json_file)
+
 
 if __name__ == '__main__':
     export_to_json()
