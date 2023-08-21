@@ -1,7 +1,11 @@
 #!/usr/bin/python3
-
+"""
+Python script that, using this REST API, for a given employee ID,
+returns information about his/her TODO list progress.
+"""
 import requests
 import sys
+
 
 def get_employee_todo_list(employee_id):
     # Define the API URL
@@ -33,6 +37,7 @@ def get_employee_todo_list(employee_id):
     for task in completed_tasks:
         print(f"\t {task['title']}")
 
+
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Usage: python3 gather_data_from_an_API.py <employee_id>")
@@ -40,5 +45,3 @@ if __name__ == '__main__':
 
     employee_id = int(sys.argv[1])
     get_employee_todo_list(employee_id)
-
-
